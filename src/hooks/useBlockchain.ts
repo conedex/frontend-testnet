@@ -1,4 +1,4 @@
-import { Blockchain } from '@venomswap/sdk'
+import { Blockchain } from '@conedex/conedex-sdk'
 import { getBlockchain } from '../utils/blockchain'
 import { useActiveWeb3React } from './index'
 

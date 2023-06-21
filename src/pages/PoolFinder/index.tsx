@@ -1,4 +1,4 @@
-import { Currency, JSBI, TokenAmount } from '@venomswap/sdk'
+import { Currency, JSBI, TokenAmount } from '@conedex/conedex-sdk'
 import React, { useCallback, useEffect, useState } from 'react'
 import { Plus } from 'react-feather'
 import { Text } from 'rebass'

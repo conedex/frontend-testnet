@@ -1,4 +1,4 @@
-import { Token, TokenAmount, Pair, JSBI } from '@venomswap/sdk'
+import { Token, TokenAmount, Pair, JSBI } from '@conedex/conedex-sdk'
 
 export default function calculateTotalStakedAmount(
   baseToken: Token,

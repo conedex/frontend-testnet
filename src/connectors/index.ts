@@ -7,7 +7,7 @@ import { PortisConnector } from '@web3-react/portis-connector'
 import { FortmaticConnector } from './Fortmatic'
 import { NetworkConnector } from './NetworkConnector'
 
-import { Blockchain, Currency } from '@venomswap/sdk'
+import { Blockchain, Currency } from '@conedex/conedex-sdk'
 
 import baseCurrencies from '../utils/baseCurrencies'
 import { getBlockchain } from '../utils/blockchain'
@@ -42,8 +42,8 @@ switch (BLOCKCHAIN) {
   case Blockchain.BINANCE_SMART_CHAIN:
     supportedChainIds = [56, 97]
     break
-  case Blockchain.HARMONY:
-    supportedChainIds = [1666600000, 1666700000]
+  case Blockchain.POLYGON:
+    supportedChainIds = [137, 80001]
     break
   default:
     supportedChainIds = [1, 3, 4, 5, 42]
@@ -77,7 +77,7 @@ export const portis = new PortisConnector({
 // mainnet only
 export const walletlink = new WalletLinkConnector({
   url: NETWORK_URL,
-  appName: 'Viperswap',
+  appName: 'ConeDEX',
   appLogoUrl:
     'https://mpng.pngfly.com/20181202/bex/kisspng-emoji-domain-unicorn-pin-badges-sticker-unicorn-tumblr-emoji-unicorn-iphoneemoji-5c046729264a77.5671679315437924251569.jpg'
 })

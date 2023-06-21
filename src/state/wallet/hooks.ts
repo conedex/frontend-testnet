@@ -1,4 +1,4 @@
-import { Currency, CurrencyAmount, JSBI, Token, TokenAmount, DEFAULT_CURRENCIES } from '@venomswap/sdk'
+import { Currency, CurrencyAmount, JSBI, Token, TokenAmount, DEFAULT_CURRENCIES } from '@conedex/conedex-sdk'
 import { useMemo, useState, useEffect } from 'react'
 import ERC20_INTERFACE from '../../constants/abis/erc20'
 import { useAllTokens } from '../../hooks/Tokens'
@@ -6,9 +6,6 @@ import { useActiveWeb3React } from '../../hooks'
 import { useMulticallContract } from '../../hooks/useContract'
 import { isAddress } from '../../utils'
 import { useSingleContractMultipleData, useMultipleContractSingleData } from '../multicall/hooks'
-import { useUserUnclaimedAmount } from '../claim/hooks'
-import { useTotalUnlockedGovTokensEarned } from '../stake/hooks'
-import useGovernanceToken from '../../hooks/tokens/useGovernanceToken'
 import { useUpdateETHBalance, useETHBalance as useStateETHBalance } from '../../state/user/hooks'
 import { retrieveETHAmount } from 'utils/redux/retrievers'
 import { useBlockNumber } from '../../state/application/hooks'
@@ -173,29 +170,4 @@ export function useAllTokenBalances(): { [tokenAddress: string]: TokenAmount | u
   const allTokensArray = useMemo(() => Object.values(allTokens ?? {}), [allTokens])
   const balances = useTokenBalances(account ?? undefined, allTokensArray)
   return balances ?? {}
-}
-
-// get the total owned, unclaimed, and unharvested UNI for account
-export function useAggregateGovTokenBalance(): TokenAmount | undefined {
-  const { chainId, account } = useActiveWeb3React()
-
-  const govToken = useGovernanceToken()
-
-  const govTokenBalance: TokenAmount | undefined = useTokenBalance(account ?? undefined, govToken)
-  const govTokenUnclaimed: TokenAmount | undefined = useUserUnclaimedAmount(account)
-  const govTokenUnHarvested: TokenAmount | undefined = useTotalUnlockedGovTokensEarned()
-
-  return useMemo(() => {
-    if (!govToken) return undefined
-    if (govTokenBalance !== undefined && govTokenUnclaimed !== undefined && govTokenUnHarvested !== undefined) {
-      return new TokenAmount(
-        govToken,
-        JSBI.add(
-          JSBI.add(govTokenBalance?.raw ?? JSBI.BigInt(0), govTokenUnclaimed?.raw ?? JSBI.BigInt(0)),
-          govTokenUnHarvested?.raw ?? JSBI.BigInt(0)
-        )
-      )
-    }
-    return undefined
-  }, [chainId, account, govTokenBalance, govTokenUnclaimed, govTokenUnHarvested])
 }

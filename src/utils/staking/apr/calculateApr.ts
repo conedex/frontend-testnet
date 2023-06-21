@@ -1,4 +1,4 @@
-import { Price, Fraction, TokenAmount, JSBI } from '@venomswap/sdk'
+import { Price, Fraction, TokenAmount, JSBI } from '@conedex/conedex-sdk'
 import { utils } from 'ethers'
 
 export default function calculateApr(

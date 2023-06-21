@@ -1,4 +1,4 @@
-import { JSBI, Token, TokenAmount, Fraction } from '@venomswap/sdk'
+import { JSBI, Token, TokenAmount, Fraction } from '@conedex/conedex-sdk'
 import { PoolType } from '../../constants/staking/types'
 
 export interface DefaultStakingPool {

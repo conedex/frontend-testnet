@@ -1,22 +1,13 @@
 import React, { useRef } from 'react'
-//import { Blockchain } from '@venomswap/sdk'
-//import { Send, Code, MessageSquare, BarChart2, Book, Twitter, Repeat } from 'react-feather'
-import { BarChart2 } from 'react-feather'
+import { Info, BookOpen, Code, MessageCircle } from 'react-feather'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import styled from 'styled-components'
 //import CoinGeckoLogo from '../../assets/images/CoinGecko-32x32.png'
-import { useActiveWeb3React } from '../../hooks'
 import { useOnClickOutside } from '../../hooks/useOnClickOutside'
 import { ApplicationModal } from '../../state/application/actions'
 import { useModalOpen, useToggleModal } from '../../state/application/hooks'
 
 import { ExternalLink } from '../../theme'
-//import { ButtonPrimary } from '../Button'
-
-//import useGovernanceToken from '../../hooks/tokens/useGovernanceToken'
-//import useBlockchain from '../../hooks/useBlockchain'
-//import { ANALYTICS_URLS, DOCS_URLS, BRIDGE_URLS } from '../../constants'
-import { ANALYTICS_URLS } from '../../constants'
 
 const StyledMenuIcon = styled(MenuIcon)`
   path {
@@ -94,29 +85,34 @@ const MenuItem = styled(ExternalLink)`
 `
 
 export default function Menu() {
-  const { chainId } = useActiveWeb3React()
-  const analyticsUrl = chainId && ANALYTICS_URLS[chainId]
-
   const node = useRef<HTMLDivElement>()
   const open = useModalOpen(ApplicationModal.MENU)
   const toggle = useToggleModal(ApplicationModal.MENU)
   useOnClickOutside(node, open ? toggle : undefined)
 
   return (
-    // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/30451
     <StyledMenu ref={node as any}>
       <StyledMenuButton onClick={toggle}>
         <StyledMenuIcon />
       </StyledMenuButton>
-
       {open && (
         <MenuFlyout>
-          {analyticsUrl && analyticsUrl !== '' && (
-            <MenuItem id="link" href={analyticsUrl}>
-              <BarChart2 size={14} />
-              Charts
-            </MenuItem>
-          )}
+          <MenuItem id="link" href="https://uniswap.org/">
+            <Info size={14} />
+            About
+          </MenuItem>
+          <MenuItem id="link" href="https://uniswap.org/docs/v2">
+            <BookOpen size={14} />
+            Docs
+          </MenuItem>
+          <MenuItem id="link" href="https://uniswap.org/docs/v2">
+            <Code size={14} />
+            Code
+          </MenuItem>
+          <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
+            <MessageCircle size={14} />
+            Discord
+          </MenuItem>
         </MenuFlyout>
       )}
     </StyledMenu>

@@ -1,9 +1,18 @@
 import { getAddress } from 'ethers/lib/utils'
-import { ChainId, Currency, Token, ETHER, HARMONY, BINANCE_COIN, DEFAULT_CURRENCIES, Blockchain } from '@venomswap/sdk'
+import {
+  ChainId,
+  Currency,
+  Token,
+  ETHER,
+  POLYGON,
+  BINANCE_COIN,
+  DEFAULT_CURRENCIES,
+  Blockchain
+} from '@conedex/conedex-sdk'
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
-import HarmonyLogo from '../../assets/images/harmony-logo.png'
+import POLYGONLogo from '../../assets/images/harmony-logo.png'
 import BinanceLogo from '../../assets/images/binance-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'
@@ -23,8 +32,8 @@ export function getTokenLogoURL(token: Token): string {
         ? `${ASSET_HOST}/tokens/${token.symbol}.png`
         : `https://assets.trustwalletapp.com/blockchains/smartchain/assets/${address}/logo.png`
 
-    case ChainId.HARMONY_MAINNET:
-    case ChainId.HARMONY_TESTNET:
+    case ChainId.POLYGON_MAINNET:
+    case ChainId.POLYGON_TESTNET:
       return `${ASSET_HOST}/tokens/${token.symbol}.png`
 
     default:
@@ -77,8 +86,8 @@ export default function CurrencyLogo({
     return <StyledEthereumLogo src={EthereumLogo} size={size} style={style} />
   } else {
     const wrappedCurrency = currency instanceof Token ? baseCurrencies(currency.chainId)[1] : undefined
-    if (currency === HARMONY || currency === (wrappedCurrency && blockchain === Blockchain.HARMONY)) {
-      return <StyledEthereumLogo src={HarmonyLogo} size={size} style={style} />
+    if (currency === POLYGON || currency === (wrappedCurrency && blockchain === Blockchain.POLYGON)) {
+      return <StyledEthereumLogo src={POLYGONLogo} size={size} style={style} />
     } else if (
       currency === BINANCE_COIN ||
       (currency === wrappedCurrency && blockchain === Blockchain.BINANCE_SMART_CHAIN)

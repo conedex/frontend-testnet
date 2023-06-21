@@ -1,4 +1,4 @@
-import { ChainId } from '@venomswap/sdk'
+import { ChainId } from '@conedex/conedex-sdk'
 import { PoolType } from '../../types'
 import getTokenWithDefault from '../../../../utils/getTokenWithDefault'
 import { SmartChefPoolInfo } from '../../types'

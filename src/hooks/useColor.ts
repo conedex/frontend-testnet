@@ -2,7 +2,7 @@ import { useState, useLayoutEffect } from 'react'
 import { shade } from 'polished'
 import Vibrant from 'node-vibrant'
 import { hex } from 'wcag-contrast'
-import { Token, ChainId } from '@venomswap/sdk'
+import { Token, ChainId } from '@conedex/conedex-sdk'
 import uriToHttp from 'utils/uriToHttp'
 import { ASSET_HOST, POOL_BACKGROUNDS } from '../constants'
 import { useActiveWeb3React } from '../hooks'
@@ -12,7 +12,7 @@ async function getColorFromToken(token: Token): Promise<string | null> {
     return Promise.resolve('#FAAB14')
   }
 
-  const path = [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.HARMONY_MAINNET, ChainId.HARMONY_TESTNET].includes(
+  const path = [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.POLYGON_MAINNET, ChainId.POLYGON_TESTNET].includes(
     token.chainId
   )
     ? `${ASSET_HOST}/tokens/${token.symbol}.png`

@@ -1,4 +1,4 @@
-import { JSBI, Pair, Percent, TokenAmount } from '@venomswap/sdk'
+import { JSBI, Pair, Percent, TokenAmount } from '@conedex/conedex-sdk'
 import { darken } from 'polished'
 import React, { useState } from 'react'
 import { ChevronDown, ChevronUp } from 'react-feather'
@@ -14,7 +14,6 @@ import { currencyId } from '../../utils/currencyId'
 import { unwrappedToken } from '../../utils/wrappedCurrency'
 import { ButtonPrimary, ButtonEmpty } from '../Button'
 import { transparentize } from 'polished'
-import { CardNoise } from '../Staking/Pools/styled'
 
 import { useColor } from '../../hooks/useColor'
 
@@ -194,7 +193,6 @@ export default function FullPositionCard({ pair, border, stakedBalance }: Positi
 
   return (
     <StyledPositionCard border={border} bgColor={backgroundColor}>
-      <CardNoise />
       <AutoColumn gap="12px">
         <FixedHeightRow>
           <AutoRow gap="8px">

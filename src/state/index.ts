@@ -12,17 +12,8 @@ import burn from './burn/reducer'
 import multicall from './multicall/reducer'
 import stakingPools from './staking/pools/reducer'
 import stakingTvls from './staking/tvl/reducer'
-import governanceTokenDetails from './governanceToken/token/reducer'
-import governanceTokenUserDetails from './governanceToken/user/reducer'
 
-const PERSISTED_KEYS: string[] = [
-  'user',
-  'transactions',
-  'lists',
-  'stakingTvls',
-  'governanceTokenDetails',
-  'governanceTokenUserDetails'
-]
+const PERSISTED_KEYS: string[] = ['user', 'transactions', 'lists', 'stakingTvls']
 
 const store = configureStore({
   reducer: {
@@ -35,9 +26,7 @@ const store = configureStore({
     multicall,
     lists,
     stakingPools,
-    stakingTvls,
-    governanceTokenDetails,
-    governanceTokenUserDetails
+    stakingTvls
   },
   middleware: [...getDefaultMiddleware({ thunk: false }), save({ states: PERSISTED_KEYS })],
   preloadedState: load({ states: PERSISTED_KEYS })

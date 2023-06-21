@@ -1,4 +1,4 @@
-import { Blockchain } from '@venomswap/sdk'
+import { Blockchain } from '@conedex/conedex-sdk'
 
 export default function generateTooltips(blockchain: Blockchain): Record<string, string> {
   const defaultToolTips: Record<string, string> = {
@@ -11,7 +11,7 @@ export default function generateTooltips(blockchain: Blockchain): Record<string,
   }
 
   switch (blockchain) {
-    case Blockchain.HARMONY:
+    case Blockchain.POLYGON:
       return defaultToolTips
 
     case Blockchain.BINANCE_SMART_CHAIN:

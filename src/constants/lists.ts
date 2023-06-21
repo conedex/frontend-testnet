@@ -17,10 +17,10 @@ const CMC_ALL_LIST = 'defi.cmc.eth'
 const CMC_STABLECOIN = 'stablecoin.cmc.eth'
 const KLEROS_LIST = 't2crtokens.eth'
 const GEMINI_LIST = 'https://www.gemini.com/uniswap/manifest.json'*/
-const VENOMSWAP_DEFAULT_LIST =
-  'https://raw.githubusercontent.com/VenomProtocol/venomswap-default-token-list/main/build/venomswap-default.tokenlist.json'
-const VENOMSWAP_COMMUNITY_LIST =
-  'https://raw.githubusercontent.com/VenomProtocol/venomswap-community-token-list/main/build/venomswap-community.tokenlist.json'
+const CONEDEX_DEFAULT_LIST =
+  'https://raw.githubusercontent.com/conedex/default-token-list/main/build/conedex-default.tokenlist.json'
+const CONEDEX_COMMUNITY_LIST =
+  'https://raw.githubusercontent.com/conedex/community-token-list/main/build/conedex-community.tokenlist.json'
 
 // lower index == higher priority for token import
 export const DEFAULT_LIST_OF_LISTS: string[] = [
@@ -37,10 +37,10 @@ export const DEFAULT_LIST_OF_LISTS: string[] = [
   CMC_STABLECOIN,
   KLEROS_LIST,
   GEMINI_LIST,*/
-  VENOMSWAP_DEFAULT_LIST,
-  VENOMSWAP_COMMUNITY_LIST,
+  CONEDEX_DEFAULT_LIST,
+  CONEDEX_COMMUNITY_LIST,
   ...UNSUPPORTED_LIST_URLS // need to load unsupported tokens as well
 ]
 
 // default lists to be 'active' aka searched across
-export const DEFAULT_ACTIVE_LIST_URLS: string[] = [VENOMSWAP_DEFAULT_LIST]
+export const DEFAULT_ACTIVE_LIST_URLS: string[] = [CONEDEX_DEFAULT_LIST]

@@ -1,4 +1,4 @@
-import { ChainId, WETH, Token } from '@venomswap/sdk'
+import { ChainId, WETH, Token } from '@conedex/conedex-sdk'
 
 export default function normalizeWethToken(chainId: ChainId, token: Token | undefined): Token | undefined {
   if (token === undefined) return undefined
@@ -8,9 +8,9 @@ export default function normalizeWethToken(chainId: ChainId, token: Token | unde
       case ChainId.BSC_MAINNET:
       case ChainId.BSC_TESTNET:
         return new Token(chainId, token.address, token.decimals, 'BNB', 'Binance Coin')
-      case ChainId.HARMONY_MAINNET:
-      case ChainId.HARMONY_TESTNET:
-        return new Token(chainId, token.address, token.decimals, 'ONE', 'Harmony')
+      case ChainId.POLYGON_MAINNET:
+      case ChainId.POLYGON_TESTNET:
+        return new Token(chainId, token.address, token.decimals, 'MATIC', 'Matic')
       default:
         return token
     }

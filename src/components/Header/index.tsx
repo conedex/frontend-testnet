@@ -1,11 +1,9 @@
-import { ChainId, Blockchain } from '@venomswap/sdk'
+import { ChainId, Blockchain } from '@conedex/conedex-sdk'
 import React, { useState } from 'react'
 import { Text } from 'rebass'
 import { NavLink } from 'react-router-dom'
 import { darken } from 'polished'
 import { useTranslation } from 'react-i18next'
-
-import { isMobile, isAndroid, isIOS } from 'react-device-detect'
 
 import styled from 'styled-components'
 
@@ -15,31 +13,16 @@ import CobraLogo from '../../assets/svg/cobraswap/black.svg'
 import CobraLogoDark from '../../assets/svg/cobraswap/white.svg'
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
-import { useETHBalance } from '../../state/wallet/hooks'
-import { CardNoise } from '../Staking/Pools/styled'
-import { CountUp } from 'use-count-up'
-import { TYPE, ExternalLink } from '../../theme'
+import { useETHBalances } from '../../state/wallet/hooks'
 
-import { BlueCard } from '../Card'
+import { YellowCard } from '../Card'
 import { Moon, Sun } from 'react-feather'
 import Menu from '../Menu'
-import StakingMenu from '../Staking/Menu'
 
 import Row, { RowFixed } from '../Row'
 import Web3Status from '../Web3Status'
-import ClaimModal from '../claim/ClaimModal'
-import { useToggleSelfClaimModal, useShowClaimPopup } from '../../state/application/hooks'
-//import { useUserHasAvailableClaim } from '../../state/claim/hooks'
-import { useUserHasSubmittedClaim } from '../../state/transactions/hooks'
-import { Dots } from '../swap/styleds'
 import Modal from '../Modal'
-import GovTokenBalanceContent from './GovTokenBalanceContent'
-import usePrevious from '../../hooks/usePrevious'
 import { BASE_CURRENCY, BLOCKCHAIN } from '../../connectors'
-import useGovernanceToken from '../../hooks/tokens/useGovernanceToken'
-import { useGovernanceTokenUserAggregatedBalance } from '../../hooks/tokens/useGovernanceTokenDetails'
-
-import { ANALYTICS_URLS } from '../../constants'
 
 const HeaderFrame = styled.div`
   display: grid;
@@ -139,40 +122,13 @@ const AccountElement = styled.div<{ active: boolean }>`
   }
 `
 
-const UNIAmount = styled(AccountElement)`
-  color: white;
-  padding: 4px 8px;
-  height: 36px;
-  font-weight: 500;
-  background-color: ${({ theme }) => theme.bg3};
-  background: radial-gradient(
-    76.02% 75.41% at 1.84% 0%,
-    ${({ theme }) => theme.tokenButtonGradientStart} 0%,
-    ${({ theme }) => theme.tokenButtonGradientEnd} 100%
-  );
-`
-
-const UNIWrapper = styled.span`
-  width: fit-content;
-  position: relative;
-  cursor: pointer;
-
-  :hover {
-    opacity: 0.8;
-  }
-
-  :active {
-    opacity: 0.9;
-  }
-`
-
 const HideSmall = styled.span`
   ${({ theme }) => theme.mediaWidth.upToSmall`
     display: none;
   `};
 `
 
-const NetworkCard = styled(BlueCard)`
+const NetworkCard = styled(YellowCard)`
   border-radius: 12px;
   padding: 8px 12px;
   ${({ theme }) => theme.mediaWidth.upToSmall`
@@ -241,37 +197,6 @@ const StyledNavLink = styled(NavLink).attrs({
   }
 `
 
-const StyledExternalLink = styled(ExternalLink).attrs({
-  activeClassName
-})<{ isActive?: boolean }>`
-  ${({ theme }) => theme.flexRowNoWrap}
-  align-items: left;
-  border-radius: 3rem;
-  outline: none;
-  cursor: pointer;
-  text-decoration: none;
-  color: ${({ theme }) => theme.text2};
-  font-size: 1rem;
-  width: fit-content;
-  margin: 0 12px;
-  font-weight: 500;
-
-  &.${activeClassName} {
-    border-radius: 12px;
-    font-weight: 600;
-    color: ${({ theme }) => theme.text1};
-  }
-
-  :hover,
-  :focus {
-    color: ${({ theme }) => darken(0.1, theme.text1)};
-  }
-
-  ${({ theme }) => theme.mediaWidth.upToExtraSmall`
-      display: none;
-`}
-`
-
 export const StyledMenuButton = styled.button`
   position: relative;
   width: 100%;
@@ -306,21 +231,13 @@ const NETWORK_LABELS: { [chainId in ChainId]?: string } = {
   [ChainId.ROPSTEN]: 'Ropsten',
   [ChainId.GÖRLI]: 'Görli',
   [ChainId.KOVAN]: 'Kovan',
-  [ChainId.BSC_MAINNET]: 'BSC',
-  [ChainId.BSC_TESTNET]: 'BSC Testnet',
-  [ChainId.HARMONY_MAINNET]: 'Harmony',
-  [ChainId.HARMONY_TESTNET]: 'Harmony Testnet'
+  [ChainId.POLYGON_MAINNET]: 'Polygon',
+  [ChainId.POLYGON_TESTNET]: 'Mumbai'
 }
 
 export default function Header() {
-  const { chainId, account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const { t } = useTranslation()
-
-  const mobile = isMobile || isAndroid || isIOS
-
-  const govToken = useGovernanceToken()
-
-  const analyticsUrl = chainId && ANALYTICS_URLS[chainId]
 
   let logoDark: string
   let logo: string
@@ -330,41 +247,25 @@ export default function Header() {
       logoDark = CobraLogoDark
       logo = CobraLogo
       break
-    case Blockchain.HARMONY:
+      {
+        /*case Blockchain.ARBITRUM_POLYGON:
       logoDark = ViperLogoDark
       logo = ViperLogo
-      break
+  break*/
+      }
     default:
       logoDark = ViperLogoDark
       logo = ViperLogo
       break
   }
 
-  const userEthBalance = useETHBalance()
-
-  // const [isDark] = useDarkModeManager()
+  const userEthBalance = useETHBalances(account ? [account] : [])?.[account ?? '']
   const [darkMode, toggleDarkMode] = useDarkModeManager()
 
-  const toggleClaimModal = useToggleSelfClaimModal()
-
-  //const availableClaim: boolean = useUserHasAvailableClaim(account)
-  const availableClaim = false
-
-  const { claimTxn } = useUserHasSubmittedClaim(account ?? undefined)
-
   const [showUniBalanceModal, setShowUniBalanceModal] = useState(false)
-  const showClaimPopup = useShowClaimPopup()
-
-  const aggregateBalance = useGovernanceTokenUserAggregatedBalance()
-  const countUpValue = aggregateBalance?.toFixed(0) ?? '0'
-  const countUpValuePrevious = usePrevious(countUpValue) ?? '0'
-
   return (
     <HeaderFrame>
-      <ClaimModal />
-      <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}>
-        <GovTokenBalanceContent setShowUniBalanceModal={setShowUniBalanceModal} />
-      </Modal>
+      <Modal isOpen={showUniBalanceModal} onDismiss={() => setShowUniBalanceModal(false)}></Modal>
       <HeaderRow>
         <Title href=".">
           <UniIcon>
@@ -388,61 +289,15 @@ export default function Header() {
           >
             {t('pool')}
           </StyledNavLink>
-          <StakingMenu />
-          {!mobile && analyticsUrl && analyticsUrl !== '' && (
-            <StyledExternalLink id={`analytics-nav-link`} href={analyticsUrl}>
-              Charts <span style={{ fontSize: '11px' }}>↗</span>
-            </StyledExternalLink>
-          )}
         </HeaderLinks>
       </HeaderRow>
       <HeaderControls>
         <HeaderElement>
           <HideSmall>
-            {account && chainId && NETWORK_LABELS[chainId] && (
+            {chainId && NETWORK_LABELS[chainId] && (
               <NetworkCard title={NETWORK_LABELS[chainId]}>{NETWORK_LABELS[chainId]}</NetworkCard>
             )}
           </HideSmall>
-          {availableClaim && !showClaimPopup && (
-            <UNIWrapper onClick={toggleClaimModal}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                <TYPE.white padding="0 2px">
-                  {claimTxn && !claimTxn?.receipt ? (
-                    <Dots>Claiming {govToken?.symbol}</Dots>
-                  ) : (
-                    `Claim ${govToken?.symbol}`
-                  )}
-                </TYPE.white>
-              </UNIAmount>
-              <CardNoise />
-            </UNIWrapper>
-          )}
-          {!availableClaim && (countUpValue || countUpValuePrevious) && (
-            <UNIWrapper onClick={() => setShowUniBalanceModal(true)}>
-              <UNIAmount active={!!account && !availableClaim} style={{ pointerEvents: 'auto' }}>
-                {account && (
-                  <HideSmall>
-                    <TYPE.white
-                      style={{
-                        paddingRight: '.4rem'
-                      }}
-                    >
-                      <CountUp
-                        key={countUpValue}
-                        isCounting
-                        start={parseFloat(countUpValuePrevious)}
-                        end={parseFloat(countUpValue)}
-                        thousandsSeparator={','}
-                        duration={1}
-                      />
-                    </TYPE.white>
-                  </HideSmall>
-                )}
-                {govToken?.symbol}
-              </UNIAmount>
-              <CardNoise />
-            </UNIWrapper>
-          )}
           <AccountElement active={!!account} style={{ pointerEvents: 'auto' }}>
             {account && userEthBalance ? (
               <BalanceText style={{ flexShrink: 0 }} pl="0.75rem" pr="0.5rem" fontWeight={500}>

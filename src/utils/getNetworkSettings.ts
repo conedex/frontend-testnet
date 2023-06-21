@@ -1,5 +1,5 @@
-import { ChainId } from '@venomswap/sdk'
-import { BLOCKCHAIN_SETTINGS } from '@venomswap/sdk-extra'
+import { ChainId } from '@conedex/conedex-sdk'
+import { BLOCKCHAIN_SETTINGS } from '@conedex/sdk-extra'
 
 export default function getNetworkSettings(chainId: ChainId, rpcUrls?: string[]): Record<string, any> {
   const settings = BLOCKCHAIN_SETTINGS[chainId]

@@ -1,16 +1,16 @@
-import { Blockchain } from '@venomswap/sdk'
+import { Blockchain } from '@conedex/conedex-sdk'
 import useBlockchain from './useBlockchain'
 
 export default function usePlatformName(): string {
   const blockchain = useBlockchain()
   switch (blockchain) {
     case Blockchain.BINANCE_SMART_CHAIN:
-      return 'CobraSwap'
-    case Blockchain.HARMONY:
-      return 'ViperSwap'
+      return 'ConeDEX'
+    case Blockchain.POLYGON:
+      return 'ConeDEX'
     case Blockchain.ETHEREUM:
-      return 'VenomSwap'
+      return 'ConeDEX'
     default:
-      return 'ViperSwap'
+      return 'ConeDEX'
   }
 }

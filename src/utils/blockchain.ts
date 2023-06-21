@@ -1,4 +1,4 @@
-import { Blockchain, ChainId, Currency, ETHER, BINANCE_COIN, HARMONY } from '@venomswap/sdk'
+import { Blockchain, ChainId, Currency, ETHER, BINANCE_COIN, POLYGON } from '@conedex/conedex-sdk'
 
 export function getBlockchain(chainId: ChainId | undefined): Blockchain {
   switch (chainId) {
@@ -11,9 +11,9 @@ export function getBlockchain(chainId: ChainId | undefined): Blockchain {
     case ChainId.BSC_MAINNET:
     case ChainId.BSC_TESTNET:
       return Blockchain.BINANCE_SMART_CHAIN
-    case ChainId.HARMONY_MAINNET:
-    case ChainId.HARMONY_TESTNET:
-      return Blockchain.HARMONY
+    case ChainId.POLYGON_MAINNET:
+    case ChainId.POLYGON_TESTNET:
+      return Blockchain.POLYGON
     default:
       return Blockchain.ETHEREUM
   }
@@ -28,8 +28,8 @@ export function getBlockchainAdjustedCurrency(
   switch (blockchain) {
     case Blockchain.BINANCE_SMART_CHAIN:
       return BINANCE_COIN
-    case Blockchain.HARMONY:
-      return HARMONY
+    case Blockchain.POLYGON:
+      return POLYGON
     default:
       return ETHER
   }
@@ -40,7 +40,7 @@ export function getBlockchainBlockTime(blockchain: Blockchain): number {
   switch (blockchain) {
     case Blockchain.BINANCE_SMART_CHAIN:
       return 3
-    case Blockchain.HARMONY:
+    case Blockchain.POLYGON:
       return 2
     default:
       return 13
@@ -58,9 +58,9 @@ export function getBlockchainName(chainId: ChainId | undefined): string {
     case ChainId.BSC_MAINNET:
     case ChainId.BSC_TESTNET:
       return 'Binance Smart Chain'
-    case ChainId.HARMONY_MAINNET:
-    case ChainId.HARMONY_TESTNET:
-      return 'Harmony'
+    case ChainId.POLYGON_MAINNET:
+    case ChainId.POLYGON_TESTNET:
+      return 'POLYGON'
     default:
       return 'Ethereum'
   }

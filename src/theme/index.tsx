@@ -11,7 +11,7 @@ import { Text, TextProps } from 'rebass'
 import { Colors } from './styled'
 
 import useBlockchainFromEnv from '../hooks/useBlockchainFromEnv'
-import { Blockchain } from '@venomswap/sdk'
+import { Blockchain } from '@conedex/conedex-sdk'
 
 export * from './components'
 
@@ -217,7 +217,7 @@ export function bscColors(darkMode: boolean): Colors {
   }
 }
 
-export function harmonyColors(darkMode: boolean): Colors {
+export function POLYGONColors(darkMode: boolean): Colors {
   return {
     // base
     white,
@@ -281,8 +281,8 @@ export function colors(blockchain: Blockchain, darkMode: boolean): Colors {
   switch (blockchain) {
     case Blockchain.BINANCE_SMART_CHAIN:
       return bscColors(darkMode)
-    case Blockchain.HARMONY:
-      return harmonyColors(darkMode)
+    case Blockchain.POLYGON:
+      return POLYGONColors(darkMode)
     default:
       return viperColors(darkMode)
   }

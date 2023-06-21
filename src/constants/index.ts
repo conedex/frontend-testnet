@@ -1,5 +1,5 @@
 import { BigNumber } from '@ethersproject/bignumber'
-import { ChainId, JSBI, Percent, Token, WETH, Fraction } from '@venomswap/sdk'
+import { ChainId, JSBI, Percent, Token, WETH, Fraction } from '@conedex/conedex-sdk'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
@@ -9,35 +9,23 @@ import getTokenWithDefault from '../utils/getTokenWithDefault'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const ZERO_ONE_ADDRESS = '0x0000000000000000000000000000000000000001'
 
+export const ROUTER_ADDRESSES: { [chainId in ChainId]: string } = {
+  [ChainId.MAINNET]: ZERO_ONE_ADDRESS,
+  [ChainId.ROPSTEN]: ZERO_ONE_ADDRESS,
+  [ChainId.RINKEBY]: ZERO_ONE_ADDRESS,
+  [ChainId.GÖRLI]: ZERO_ONE_ADDRESS,
+  [ChainId.KOVAN]: ZERO_ONE_ADDRESS,
+  [ChainId.BSC_MAINNET]: ZERO_ONE_ADDRESS,
+  [ChainId.BSC_TESTNET]: '0xDBbEbd367133609DA8c7AcDF96A4498E4F0f1F9c',
+  [ChainId.POLYGON_MAINNET]: 'null',
+  [ChainId.POLYGON_TESTNET]: '0x3f70d1326DA60E626f94b0d1fe98168Ad6f306c6'
+}
+
 export const GOVERNANCE_ADDRESS = '0x5e4be8Bc9637f0EAA1A755019e06A68ce081D58F'
 
 export const TIMELOCK_ADDRESS = '0x1a9C8182C09F50C8318d769245beA52c32BE35BC'
 
 export const DISPLAY_TVL = false
-
-export const PIT_SETTINGS: { [chainId in ChainId]: Record<string, string> } = {
-  [ChainId.MAINNET]: { name: '', path: '' },
-  [ChainId.RINKEBY]: { name: '', path: '' },
-  [ChainId.ROPSTEN]: { name: '', path: '' },
-  [ChainId.GÖRLI]: { name: '', path: '' },
-  [ChainId.KOVAN]: { name: '', path: '' },
-  [ChainId.BSC_MAINNET]: { name: 'CobraPit', path: '/cobraPit' },
-  [ChainId.BSC_TESTNET]: { name: 'CobraPit', path: '/cobraPit' },
-  [ChainId.HARMONY_MAINNET]: { name: 'ViperPit', path: '/viperPit' },
-  [ChainId.HARMONY_TESTNET]: { name: 'ViperPit', path: '/viperPit' }
-}
-
-export const NEST_SETTINGS: { [chainId in ChainId]: Record<string, string> } = {
-  [ChainId.MAINNET]: { name: '', path: '' },
-  [ChainId.RINKEBY]: { name: '', path: '' },
-  [ChainId.ROPSTEN]: { name: '', path: '' },
-  [ChainId.GÖRLI]: { name: '', path: '' },
-  [ChainId.KOVAN]: { name: '', path: '' },
-  [ChainId.BSC_MAINNET]: { name: 'CobraNest', path: '/single' },
-  [ChainId.BSC_TESTNET]: { name: 'CobraNest', path: '/single' },
-  [ChainId.HARMONY_MAINNET]: { name: 'ViperNest', path: '/single' },
-  [ChainId.HARMONY_TESTNET]: { name: 'ViperNest', path: '/single' }
-}
 
 export const EXCHANGE_SUBGRAPHS: { [chainId in ChainId]: string } = {
   [ChainId.MAINNET]: '',
@@ -47,8 +35,8 @@ export const EXCHANGE_SUBGRAPHS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '',
   [ChainId.BSC_MAINNET]: '',
   [ChainId.BSC_TESTNET]: '',
-  [ChainId.HARMONY_MAINNET]: '',
-  [ChainId.HARMONY_TESTNET]: ''
+  [ChainId.POLYGON_MAINNET]: '',
+  [ChainId.POLYGON_TESTNET]: ''
 }
 
 export const ANALYTICS_URLS: { [chainId in ChainId]: string } = {
@@ -59,20 +47,8 @@ export const ANALYTICS_URLS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '',
   [ChainId.BSC_MAINNET]: '',
   [ChainId.BSC_TESTNET]: '',
-  [ChainId.HARMONY_MAINNET]: '',
-  [ChainId.HARMONY_TESTNET]: ''
-}
-
-export const BRIDGE_URLS: { [chainId in ChainId]: string } = {
-  [ChainId.MAINNET]: '',
-  [ChainId.RINKEBY]: '',
-  [ChainId.ROPSTEN]: '',
-  [ChainId.GÖRLI]: '',
-  [ChainId.KOVAN]: '',
-  [ChainId.BSC_MAINNET]: '',
-  [ChainId.BSC_TESTNET]: '',
-  [ChainId.HARMONY_MAINNET]: 'https://bridge.harmony.one',
-  [ChainId.HARMONY_TESTNET]: ''
+  [ChainId.POLYGON_MAINNET]: '',
+  [ChainId.POLYGON_TESTNET]: ''
 }
 
 export const DOCS_URLS: { [chainId in ChainId]: string } = {
@@ -83,8 +59,8 @@ export const DOCS_URLS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '',
   [ChainId.BSC_MAINNET]: '',
   [ChainId.BSC_TESTNET]: '',
-  [ChainId.HARMONY_MAINNET]: '',
-  [ChainId.HARMONY_TESTNET]: ''
+  [ChainId.POLYGON_MAINNET]: '',
+  [ChainId.POLYGON_TESTNET]: ''
 }
 
 export const WEB_INTERFACES: { [chainId in ChainId]: string[] } = {
@@ -95,8 +71,8 @@ export const WEB_INTERFACES: { [chainId in ChainId]: string[] } = {
   [ChainId.KOVAN]: [''],
   [ChainId.BSC_MAINNET]: [],
   [ChainId.BSC_TESTNET]: [],
-  [ChainId.HARMONY_MAINNET]: [],
-  [ChainId.HARMONY_TESTNET]: []
+  [ChainId.POLYGON_MAINNET]: [],
+  [ChainId.POLYGON_TESTNET]: []
 }
 
 export const TOKEN_LOGO_EXCEPTIONS: { [chainId in ChainId]: string[] } = {
@@ -105,14 +81,10 @@ export const TOKEN_LOGO_EXCEPTIONS: { [chainId in ChainId]: string[] } = {
   [ChainId.ROPSTEN]: [],
   [ChainId.GÖRLI]: [],
   [ChainId.KOVAN]: [],
-  [ChainId.BSC_MAINNET]: [
-    '0x2C449bA613873e7B980FaF2b686207d7bd205541', // COBRA
-    '0x45f785581e0787D3C0C62676ABc6f17783e021f0', // xCOBRA
-    '0x7E080699D0F306dbAE458b13EA6fa8BfD0efe752' // 1VIPER
-  ],
+  [ChainId.BSC_MAINNET]: [],
   [ChainId.BSC_TESTNET]: [],
-  [ChainId.HARMONY_MAINNET]: [],
-  [ChainId.HARMONY_TESTNET]: []
+  [ChainId.POLYGON_MAINNET]: [],
+  [ChainId.POLYGON_TESTNET]: []
 }
 
 export const POOL_BACKGROUNDS: { [chainId in ChainId]: string } = {
@@ -123,8 +95,8 @@ export const POOL_BACKGROUNDS: { [chainId in ChainId]: string } = {
   [ChainId.KOVAN]: '',
   [ChainId.BSC_MAINNET]: '#c99212',
   [ChainId.BSC_TESTNET]: '#c99212',
-  [ChainId.HARMONY_MAINNET]: '#02a2c4',
-  [ChainId.HARMONY_TESTNET]: '#02a2c4'
+  [ChainId.POLYGON_MAINNET]: '#02a2c4',
+  [ChainId.POLYGON_TESTNET]: '#02a2c4'
 }
 
 export const UNLOCKING_STARTS: { [chainId in ChainId]: number | undefined } = {
@@ -135,8 +107,8 @@ export const UNLOCKING_STARTS: { [chainId in ChainId]: number | undefined } = {
   [ChainId.KOVAN]: undefined,
   [ChainId.BSC_MAINNET]: 15135850,
   [ChainId.BSC_TESTNET]: 16612200,
-  [ChainId.HARMONY_MAINNET]: 22770895,
-  [ChainId.HARMONY_TESTNET]: 21195000
+  [ChainId.POLYGON_MAINNET]: 22770895,
+  [ChainId.POLYGON_TESTNET]: 21195000
 }
 
 export { PRELOADED_PROPOSALS } from './proposals'
@@ -180,29 +152,22 @@ const WETH_ONLY: ChainTokenList = {
   [ChainId.KOVAN]: [WETH[ChainId.KOVAN]],
   [ChainId.BSC_MAINNET]: [WETH[ChainId.BSC_MAINNET]],
   [ChainId.BSC_TESTNET]: [WETH[ChainId.BSC_TESTNET]],
-  [ChainId.HARMONY_MAINNET]: [WETH[ChainId.HARMONY_MAINNET]],
-  [ChainId.HARMONY_TESTNET]: [WETH[ChainId.HARMONY_TESTNET]]
+  [ChainId.POLYGON_MAINNET]: [WETH[ChainId.POLYGON_MAINNET]],
+  [ChainId.POLYGON_TESTNET]: [WETH[ChainId.POLYGON_TESTNET]]
 }
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, MKR, WBTC],
-  [ChainId.HARMONY_MAINNET]: [
-    ...WETH_ONLY[ChainId.HARMONY_MAINNET],
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1DAI'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1USDC'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1ETH'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'VIPER'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'WAGMI')
-  ],
-  [ChainId.BSC_MAINNET]: [
-    ...WETH_ONLY[ChainId.BSC_MAINNET],
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDT'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDC'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'COBRA')
+  [ChainId.POLYGON_MAINNET]: [
+    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
+    DAI,
+    USDT,
+    USDC,
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1ETH'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'LINK')
   ]
 }
 
@@ -220,20 +185,10 @@ export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: To
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
-  [ChainId.HARMONY_MAINNET]: [
-    ...WETH_ONLY[ChainId.HARMONY_MAINNET],
-    /*getTokenWithDefault(ChainId.HARMONY_MAINNET, '1DAI'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1USDC'),*/
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'VIPER'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'WAGMI')
-  ],
-  [ChainId.BSC_MAINNET]: [
-    ...WETH_ONLY[ChainId.BSC_MAINNET],
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDT'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDC'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'COBRA')
+  [ChainId.POLYGON_MAINNET]: [
+    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'BUSD'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER')
   ]
 }
 
@@ -241,23 +196,14 @@ export const SUGGESTED_BASES: ChainTokenList = {
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
-  [ChainId.HARMONY_MAINNET]: [
-    ...WETH_ONLY[ChainId.HARMONY_MAINNET],
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1DAI'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1USDC'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, '1ETH'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'VIPER'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'xVIPER'),
-    getTokenWithDefault(ChainId.HARMONY_MAINNET, 'WAGMI')
-  ],
-  [ChainId.BSC_MAINNET]: [
-    ...WETH_ONLY[ChainId.BSC_MAINNET],
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDT'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'USDC'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'COBRA'),
-    getTokenWithDefault(ChainId.BSC_MAINNET, 'xCOBRA')
+  [ChainId.POLYGON_MAINNET]: [
+    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'BUSD'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'bscBUSD'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1USDC'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1ETH'),
+    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'LINK')
   ]
 }
 

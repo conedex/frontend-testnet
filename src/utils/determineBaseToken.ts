@@ -1,4 +1,4 @@
-import { Token, DEFAULT_CURRENCIES } from '@venomswap/sdk'
+import { Token, DEFAULT_CURRENCIES } from '@conedex/conedex-sdk'
 import { unwrappedToken } from './wrappedCurrency'
 
 export default function determineBaseToken(tokenData: Record<string, any>, tokens: [Token, Token]): Token | undefined {
@@ -16,11 +16,6 @@ export default function determineBaseToken(tokenData: Record<string, any>, token
     tokens[1]?.symbol?.toUpperCase() === tokenData?.govToken?.token?.symbol?.toUpperCase()
   ) {
     baseToken = tokenData?.govToken?.token
-  } else if (
-    tokens[0]?.symbol?.toUpperCase() === tokenData?.pitToken?.token?.symbol?.toUpperCase() ||
-    tokens[1]?.symbol?.toUpperCase() === tokenData?.pitToken?.token?.symbol?.toUpperCase()
-  ) {
-    baseToken = tokenData?.pitToken?.token
   } else if (
     tokens[0]?.symbol?.toUpperCase() === tokenData?.BUSD?.token?.symbol?.toUpperCase() ||
     tokens[1]?.symbol?.toUpperCase() === tokenData?.BUSD?.token?.symbol?.toUpperCase()

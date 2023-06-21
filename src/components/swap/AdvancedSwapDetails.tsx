@@ -1,4 +1,4 @@
-import { Trade, TradeType } from '@venomswap/sdk'
+import { Trade, TradeType } from '@conedex/conedex-sdk'
 import React, { useContext } from 'react'
 import styled, { ThemeContext } from 'styled-components'
 import { Field } from '../../state/swap/actions'
@@ -12,8 +12,8 @@ import FormattedPriceImpact from './FormattedPriceImpact'
 import SwapRoute from './SwapRoute'
 import useBlockchain from '../../hooks/useBlockchain'
 import { getBlockchainAdjustedCurrency } from '../../utils/blockchain'
-import { useActiveWeb3React } from '../../hooks'
-import { PIT_SETTINGS, ANALYTICS_URLS } from '../../constants'
+import { ANALYTICS_URLS } from '../../constants'
+import { useActiveWeb3React } from 'hooks'
 
 const InfoLink = styled(ExternalLink)`
   width: 100%;
@@ -26,8 +26,6 @@ const InfoLink = styled(ExternalLink)`
 `
 
 function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippage: number }) {
-  const { chainId } = useActiveWeb3React()
-  const pitSettings = chainId ? PIT_SETTINGS[chainId] : undefined
   const blockchain = useBlockchain()
 
   const theme = useContext(ThemeContext)
@@ -72,7 +70,7 @@ function TradeSummary({ trade, allowedSlippage }: { trade: Trade; allowedSlippag
               Liquidity Provider Fee
             </TYPE.black>
             <QuestionHelper
-              text={`A portion of each trade (0.30%) goes to liquidity providers and ${pitSettings?.name} stakers as a protocol incentive.`}
+              text={`A portion of each trade (0.30%) goes to liquidity providers and stakers as a protocol incentive.`}
             />
           </RowFixed>
           <TYPE.black fontSize={14} color={theme.text1}>

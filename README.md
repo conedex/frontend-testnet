@@ -20,17 +20,19 @@ yarn install
 
 Create a new file called .env.local in the root of the project folder.
 
-#### Harmony / Viperswap
+#### POLYGON
 
 Add the following to the empty .env.local file:
+
 ```
-REACT_APP_CHAIN_ID="1666600000"
-REACT_APP_NETWORK_URL="https://api.harmony.one"
+REACT_APP_CHAIN_ID="137"
+REACT_APP_NETWORK_URL=""
 ```
 
-#### Binance Smart Chain (BSC) / Cobraswap
+#### Binance Smart Chain (BSC)
 
 Add the following to the empty .env.local file:
+
 ```
 REACT_APP_CHAIN_ID="56"
 REACT_APP_NETWORK_URL="https://bsc-dataseed.binance.org/"

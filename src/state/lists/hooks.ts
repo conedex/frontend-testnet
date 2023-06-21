@@ -1,6 +1,6 @@
 import { UNSUPPORTED_LIST_URLS } from './../../constants/lists'
-import DEFAULT_TOKEN_LIST from '@venomswap/default-token-list'
-import { ChainId, Token } from '@venomswap/sdk'
+import DEFAULT_TOKEN_LIST from '@conedex/default-token-list'
+import { ChainId, Token } from '@conedex/conedex-sdk'
 import { Tags, TokenInfo, TokenList } from '@uniswap/token-lists'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
@@ -44,8 +44,8 @@ const EMPTY_LIST: TokenAddressMap = {
   [ChainId.MAINNET]: {},
   [ChainId.BSC_MAINNET]: {},
   [ChainId.BSC_TESTNET]: {},
-  [ChainId.HARMONY_MAINNET]: {},
-  [ChainId.HARMONY_TESTNET]: {}
+  [ChainId.POLYGON_MAINNET]: {},
+  [ChainId.POLYGON_TESTNET]: {}
 }
 
 const listCache: WeakMap<TokenList, TokenAddressMap> | null =
@@ -103,8 +103,8 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
     42: { ...map1[42], ...map2[42] },
     56: { ...map1[56], ...map2[56] },
     97: { ...map1[97], ...map2[97] },
-    1666600000: { ...map1[1666600000], ...map2[1666600000] },
-    1666700000: { ...map1[1666700000], ...map2[1666700000] }
+    137: { ...map1[137], ...map2[137] },
+    80001: { ...map1[80001], ...map2[80001] }
   }
 }
 

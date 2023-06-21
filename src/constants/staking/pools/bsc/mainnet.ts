@@ -1,4 +1,4 @@
-import { ChainId, Pair } from '@venomswap/sdk'
+import { ChainId, Pair } from '@conedex/conedex-sdk'
 import getPairTokensWithDefaults from '../../../../utils/getPairTokensWithDefaults'
 import getTokenWithDefault from '../../../../utils/getTokenWithDefault'
 import { DefaultStakingPoolInfo } from '../../types'

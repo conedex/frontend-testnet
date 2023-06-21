@@ -1,10 +1,9 @@
 import React, { useContext, useMemo } from 'react'
 import styled, { ThemeContext } from 'styled-components'
-import { Pair, JSBI } from '@venomswap/sdk'
+import { Pair } from '@conedex/conedex-sdk'
 import { Link } from 'react-router-dom'
 import { SwapPoolTabs } from '../../components/NavigationTabs'
 
-import FullPositionCard from '../../components/PositionCard'
 import { useUserHasLiquidityInAllTokens } from '../../data/V1'
 import { useTokenBalancesWithLoadingIndicator } from '../../state/wallet/hooks'
 import { StyledInternalLink, ExternalLink, TYPE, HideSmall } from '../../theme'
@@ -18,14 +17,11 @@ import { useActiveWeb3React } from '../../hooks'
 import { usePairs } from '../../data/Reserves'
 import { toV2LiquidityToken, useTrackedTokenPairs } from '../../state/user/hooks'
 import { Dots } from '../../components/swap/styleds'
-import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/Staking/Pools/styled'
-import { useDefaultStakingPools } from '../../state/stake/hooks'
-import { BIG_INT_ZERO, ANALYTICS_URLS } from '../../constants'
+import { CardSection, DataCard, CardNoise, CardBGImage } from '../../components/earn/styled'
 
-import { Blockchain } from '@venomswap/sdk'
+import { Blockchain } from '@conedex/conedex-sdk'
 import useBlockchain from '../../hooks/useBlockchain'
 import baseCurrencies from '../../utils/baseCurrencies'
-import useExtendWithStakedAmount from '../../hooks/staking/pools/useExtendWithStakedAmount'
 
 const PageWrapper = styled(AutoColumn)`
   max-width: 640px;
@@ -123,25 +119,6 @@ export default function Pool() {
 
   const hasV1Liquidity = useUserHasLiquidityInAllTokens()
 
-  // show liquidity even if its deposited in rewards contract
-  let stakingInfo = useDefaultStakingPools(true)
-  stakingInfo = useExtendWithStakedAmount(stakingInfo)
-  const stakingInfosWithBalance = stakingInfo?.filter(
-    pool => pool.stakedAmount && JSBI.greaterThan(pool.stakedAmount.raw, BIG_INT_ZERO)
-  )
-  const stakingPairs = usePairs(stakingInfosWithBalance?.map(stakingInfo => stakingInfo.tokens))
-
-  // remove any pairs that also are included in pairs with stake in mining pool
-  const v2PairsWithoutStakedAmount = allV2PairsWithLiquidity.filter(v2Pair => {
-    return (
-      stakingPairs
-        ?.map(stakingPair => stakingPair[1])
-        .filter(stakingPair => stakingPair?.liquidityToken.address === v2Pair.liquidityToken.address).length === 0
-    )
-  })
-
-  const analyticsUrl = chainId && ANALYTICS_URLS[chainId]
-
   return (
     <>
       <PageWrapper>
@@ -156,7 +133,7 @@ export default function Pool() {
               </RowBetween>
               <RowBetween>
                 <TYPE.white fontSize={14}>
-                  {`Liquidity providers earn a 0.2% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
+                  {`Liquidity providers earn a 0.25% fee on all trades proportional to their share of the pool. Fees are added to the pool, accrue in real time and can be claimed by withdrawing your liquidity.`}
                 </TYPE.white>
               </RowBetween>
               {blockchain === Blockchain.ETHEREUM && (
@@ -212,30 +189,17 @@ export default function Pool() {
                   <Dots>Loading</Dots>
                 </TYPE.body>
               </EmptyProposals>
-            ) : allV2PairsWithLiquidity?.length > 0 || stakingPairs?.length > 0 ? (
+            ) : allV2PairsWithLiquidity?.length > 0 ? (
               <>
-                {analyticsUrl && analyticsUrl !== '' && (
+                {blockchain === Blockchain.ETHEREUM && (
                   <ButtonSecondary>
                     <RowBetween>
-                      <ExternalLink href={`${analyticsUrl}/account/${account}`}>
+                      <ExternalLink href={'https://uniswap.info/account/' + account}>
                         Account analytics and accrued fees
                       </ExternalLink>
                       <span> ↗</span>
                     </RowBetween>
                   </ButtonSecondary>
-                )}
-                {v2PairsWithoutStakedAmount.map(v2Pair => (
-                  <FullPositionCard key={v2Pair.liquidityToken.address} pair={v2Pair} />
-                ))}
-                {stakingPairs.map(
-                  (stakingPair, i) =>
-                    stakingPair[1] && ( // skip pairs that arent loaded
-                      <FullPositionCard
-                        key={stakingInfosWithBalance[i].pid}
-                        pair={stakingPair[1]}
-                        stakedBalance={stakingInfosWithBalance[i].stakedAmount}
-                      />
-                    )
                 )}
               </>
             ) : (
@@ -248,7 +212,7 @@ export default function Pool() {
 
             <AutoColumn justify={'center'} gap="md">
               <Text textAlign="center" fontSize={14} style={{ padding: '.5rem 0 .5rem 0' }}>
-                {hasV1Liquidity ? 'Viperswap V1 liquidity found!' : "Don't see a pool you joined?"}{' '}
+                {hasV1Liquidity ? 'ConeDEX liquidity found!' : "Don't see a pool you joined?"}{' '}
                 <StyledInternalLink id="import-pool-link" to={hasV1Liquidity ? '/migrate/v1' : '/find'}>
                   {hasV1Liquidity ? 'Migrate now.' : 'Import it.'}
                 </StyledInternalLink>

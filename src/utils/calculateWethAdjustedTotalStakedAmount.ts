@@ -1,4 +1,4 @@
-import { Token, TokenAmount, Fraction, ChainId } from '@venomswap/sdk'
+import { Token, TokenAmount, Fraction, ChainId } from '@conedex/conedex-sdk'
 import { wrappedCurrency } from './wrappedCurrency'
 import calculateTotalStakedAmount from './calculateTotalStakedAmount'
 import getPair from './getPair'
@@ -25,10 +25,6 @@ function pairCurrencyAmountInWeth(
     case tokens?.govToken?.token?.symbol?.toUpperCase():
       return tokens?.govToken?.price
         ? valueOfTotalStakedAmountInPairCurrency.multiply(tokens?.govToken?.price)
-        : valueOfTotalStakedAmountInPairCurrency
-    case tokens?.pitToken?.token?.symbol?.toUpperCase():
-      return tokens?.pitToken?.price
-        ? valueOfTotalStakedAmountInPairCurrency.multiply(tokens?.pitToken?.price)
         : valueOfTotalStakedAmountInPairCurrency
 
     // Bridged ETH stables

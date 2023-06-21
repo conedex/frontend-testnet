@@ -1,4 +1,4 @@
-import { Token } from '@venomswap/sdk'
+import { Token } from '@conedex/conedex-sdk'
 
 export enum PoolType {
   Single,

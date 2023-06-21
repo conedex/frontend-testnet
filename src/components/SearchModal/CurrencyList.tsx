@@ -1,5 +1,4 @@
-import { ChainId, Currency, CurrencyAmount, currencyEquals, Token } from '@venomswap/sdk'
-import { TOKENS } from '@venomswap/sdk-extra'
+import { Currency, CurrencyAmount, currencyEquals, Token } from '@conedex/conedex-sdk'
 import React, { CSSProperties, MutableRefObject, useCallback, useMemo } from 'react'
 import { FixedSizeList } from 'react-window'
 import { Text } from 'rebass'
@@ -24,9 +23,6 @@ import QuestionHelper from 'components/QuestionHelper'
 import useTheme from 'hooks/useTheme'
 import { BASE_CURRENCY } from '../../connectors'
 import baseCurrencies from '../../utils/baseCurrencies'
-import { LinkStyledButton } from '../../theme'
-import { PlusHelper } from '../QuestionHelper'
-import useAddTokenToMetamask from 'hooks/useAddTokenToMetamask'
 
 function currencyKey(currency: Currency): string {
   const name: string = BASE_CURRENCY && BASE_CURRENCY.name ? BASE_CURRENCY.name.toUpperCase() : 'ETH'
@@ -117,54 +113,36 @@ function CurrencyRow({
   otherSelected: boolean
   style: CSSProperties
 }) {
-  const { chainId, account } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
   const key = currencyKey(currency)
   const selectedTokenList = useCombinedActiveList()
   const isOnSelectedList = isTokenOnList(selectedTokenList, currency)
   const customAdded = useIsUserAddedToken(currency)
   const balance = useCurrencyBalance(account ?? undefined, currency)
 
-  const baseCurrency = baseCurrencies(chainId)[0]
-  const { addToken, success } = useAddTokenToMetamask(currency)
-
   // only show add or remove buttons if not on selected list
   return (
-    <>
-      {currency && (
-        <MenuItem
-          style={style}
-          className={`token-item-${key}`}
-          onClick={() => (isSelected ? null : onSelect())}
-          disabled={isSelected}
-          selected={otherSelected}
-        >
-          <CurrencyLogo currency={currency} size={'24px'} />
-          <Column>
-            <Text title={currency.name} fontWeight={500}>
-              {currency.symbol}
-              {success && currency !== baseCurrency && (
-                <LinkStyledButton
-                  style={{ cursor: 'pointer' }}
-                  onClick={(event: any) => {
-                    addToken()
-                    event.stopPropagation()
-                  }}
-                >
-                  <PlusHelper text="Add to metamask." />
-                </LinkStyledButton>
-              )}
-            </Text>
-            <TYPE.darkGray ml="0px" fontSize={'12px'} fontWeight={300}>
-              {currency.name} {!isOnSelectedList && customAdded && '• Added by user'}
-            </TYPE.darkGray>
-          </Column>
-          <TokenTags currency={currency} />
-          <RowFixed style={{ justifySelf: 'flex-end' }}>
-            {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
-          </RowFixed>
-        </MenuItem>
-      )}
-    </>
+    <MenuItem
+      style={style}
+      className={`token-item-${key}`}
+      onClick={() => (isSelected ? null : onSelect())}
+      disabled={isSelected}
+      selected={otherSelected}
+    >
+      <CurrencyLogo currency={currency} size={'24px'} />
+      <Column>
+        <Text title={currency.name} fontWeight={500}>
+          {currency.symbol}
+        </Text>
+        <TYPE.darkGray ml="0px" fontSize={'12px'} fontWeight={300}>
+          {currency.name} {!isOnSelectedList && customAdded && '• Added by user'}
+        </TYPE.darkGray>
+      </Column>
+      <TokenTags currency={currency} />
+      <RowFixed style={{ justifySelf: 'flex-end' }}>
+        {balance ? <Balance balance={balance} /> : account ? <Loader /> : null}
+      </RowFixed>
+    </MenuItem>
   )
 }
 
@@ -192,32 +170,15 @@ export default function CurrencyList({
   breakIndex: number | undefined
 }) {
   const { chainId } = useActiveWeb3React()
-  const baseCurrencyList = baseCurrencies(chainId)
-  const baseCurrency = baseCurrencyList[0]
-  const governanceToken = baseCurrencyList[2]
-
-  const stickied = [governanceToken]
-
-  if (chainId === ChainId.HARMONY_MAINNET) {
-    const wagmi = TOKENS[chainId].firstBySymbol('WAGMI')
-    if (wagmi) {
-      stickied.push(wagmi)
-    }
-  }
-
-  const stickiedSymbols = stickied.map(stickiedToken => stickiedToken.symbol?.toLowerCase())
-
-  currencies = governanceToken
-    ? currencies.filter(currency => !stickiedSymbols.includes(currency.symbol?.toLowerCase()))
-    : currencies
+  const baseCurrency = baseCurrencies(chainId)[0]
 
   const itemData: (Currency | undefined)[] = useMemo(() => {
-    let formatted: (Currency | undefined)[] = showETH ? [baseCurrency, ...stickied, ...currencies] : currencies
+    let formatted: (Currency | undefined)[] = showETH ? [baseCurrency, ...currencies] : currencies
     if (breakIndex !== undefined) {
       formatted = [...formatted.slice(0, breakIndex), undefined, ...formatted.slice(breakIndex, formatted.length)]
     }
     return formatted
-  }, [breakIndex, baseCurrencyList, currencies, showETH])
+  }, [breakIndex, baseCurrency, currencies, showETH])
 
   const theme = useTheme()
 

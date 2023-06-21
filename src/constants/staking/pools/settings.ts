@@ -1,4 +1,4 @@
-import { ChainId } from '@venomswap/sdk'
+import { ChainId } from '@conedex/conedex-sdk'
 
 export const STAKING_SETTINGS: {
   [chainId in ChainId]?: Record<string, any>
@@ -13,12 +13,12 @@ export const STAKING_SETTINGS: {
     lockRewardsRatio: 95,
     unlockedRewardsRatio: 5
   },
-  [ChainId.HARMONY_MAINNET]: {
+  [ChainId.POLYGON_MAINNET]: {
     startBlock: 10183471,
     lockRewardsRatio: 95,
     unlockedRewardsRatio: 5
   },
-  [ChainId.HARMONY_TESTNET]: {
+  [ChainId.POLYGON_TESTNET]: {
     startBlock: 10183471,
     lockRewardsRatio: 95,
     unlockedRewardsRatio: 5

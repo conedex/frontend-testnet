@@ -1,4 +1,4 @@
-import { ChainId, Pair, Token } from '@venomswap/sdk'
+import { ChainId, Pair, Token } from '@conedex/conedex-sdk'
 import flatMap from 'lodash.flatmap'
 import ReactGA from 'react-ga'
 import { useCallback, useMemo } from 'react'
@@ -200,7 +200,7 @@ export function useURLWarningToggle(): () => void {
  * @param tokenB the other token
  */
 export function toV2LiquidityToken([tokenA, tokenB]: [Token, Token]): Token {
-  return new Token(tokenA.chainId, Pair.getAddress(tokenA, tokenB), 18, 'VENOM-LP', 'Venom LP Token')
+  return new Token(tokenA.chainId, Pair.getAddress(tokenA, tokenB), 18, 'CONE-LP', 'Cone LP Token')
 }
 
 /**

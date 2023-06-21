@@ -3,17 +3,9 @@ import { getAddress } from '@ethersproject/address'
 import { AddressZero } from '@ethersproject/constants'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
-import { abi as IUniswapV2Router02ABI } from '@venomswap/periphery/build/IUniswapV2Router02.json'
-import {
-  ChainId,
-  JSBI,
-  Percent,
-  Token,
-  CurrencyAmount,
-  Currency,
-  DEFAULT_CURRENCIES,
-  ROUTER_ADDRESSES
-} from '@venomswap/sdk'
+import { abi as IUniswapV2Router02ABI } from '@conedex/conedex-contracts/build/PancakeRouter.sol/PancakeRouter.json'
+import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, DEFAULT_CURRENCIES } from '@conedex/conedex-sdk'
+import { ROUTER_ADDRESSES } from '../constants'
 import { TokenAddressMap } from '../state/lists/hooks'
 import { useActiveWeb3React } from '../hooks/index'
 
@@ -34,8 +26,8 @@ const ETHERSCAN_PREFIXES: { [chainId in ChainId]: string } = {
   42: 'kovan.',
   56: 'bscscan.com',
   97: 'testnet.bscscan.com',
-  1666600000: 'explorer.harmony.one',
-  1666700000: 'explorer.testnet.harmony.one'
+  137: 'polygonscan.com',
+  80001: 'https://mumbai.polygonscan.com/'
 }
 
 export function getEtherscanLink(
@@ -44,7 +36,7 @@ export function getEtherscanLink(
   type: 'transaction' | 'token' | 'address' | 'block'
 ): string {
   let prefix = `https://${ETHERSCAN_PREFIXES[chainId] || ETHERSCAN_PREFIXES[1]}`
-  prefix = [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.HARMONY_MAINNET, ChainId.HARMONY_TESTNET].includes(
+  prefix = [ChainId.BSC_MAINNET, ChainId.BSC_TESTNET, ChainId.POLYGON_MAINNET, ChainId.POLYGON_TESTNET].includes(
     chainId
   )
     ? prefix
