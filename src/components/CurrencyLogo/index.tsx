@@ -12,7 +12,7 @@ import {
 import React, { useMemo } from 'react'
 import styled from 'styled-components'
 import EthereumLogo from '../../assets/images/ethereum-logo.png'
-import POLYGONLogo from '../../assets/images/harmony-logo.png'
+import POLYGONLogo from '../../assets/images/polygon32x32.png'
 import BinanceLogo from '../../assets/images/binance-logo.png'
 import useHttpLocations from '../../hooks/useHttpLocations'
 import { WrappedTokenInfo } from '../../state/lists/hooks'

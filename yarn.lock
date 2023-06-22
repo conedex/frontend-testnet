@@ -3303,11 +3303,6 @@
   resolved "https://registry.yarnpkg.com/@venomswap/core/-/core-1.0.0.tgz#f1336702e8ecce6b79b06212220da43a34b3749c"
   integrity sha512-cd4+e5KKH7QmSjMhe50lty35eHuZVTh9YYnkWPdQPe6KG3R5P5JE3LFliwNLpuV4jWEYYRlEa3OaG3ie+BlYrg==
 
-"@venomswap/default-token-list@^5.9.0":
-  version "5.9.0"
-  resolved "https://registry.yarnpkg.com/@venomswap/default-token-list/-/default-token-list-5.9.0.tgz#aa7b6d9eecb5e2e8f0f0d65f9e7c3d8ad52972ac"
-  integrity sha512-2r9FKdkD8iYjU1udPrpiOU3klkeCAlBUyYEL5/k3gYg1M8jrZrk/vE0qm1Hkxm4FAp0Y69Qeuz2o182qyWFJhw==
-
 "@venomswap/lib@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@venomswap/lib/-/lib-1.0.0.tgz#8e76f9d2746c8f0a892ba0a28c7ec7d14bec609c"

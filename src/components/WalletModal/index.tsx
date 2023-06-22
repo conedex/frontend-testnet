@@ -371,7 +371,7 @@ export default function WalletModal({
               )}
               {blockchain === Blockchain.POLYGON && (
                 <>
-                  <span>New to Harmony? &nbsp;</span> <ExternalLink href="">Learn more about wallets</ExternalLink>
+                  <span>New to Polygon? &nbsp;</span> <ExternalLink href="">Learn more about wallets</ExternalLink>
                 </>
               )}
             </Blurb>

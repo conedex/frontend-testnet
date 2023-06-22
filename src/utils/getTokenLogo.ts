@@ -1,12 +1,11 @@
 import { Blockchain } from '@conedex/conedex-sdk'
 import { BLOCKCHAIN } from '../connectors'
-import viperTokenLogo from '../assets/images/viper-token-logo.png'
-import cobraTokenLogo from '../assets/images/cobra-token-logo.png'
+import viperTokenLogo from '../assets/images/bitcone.png'
 
 export default function getTokenLogo(): string {
   switch (BLOCKCHAIN) {
     case Blockchain.BINANCE_SMART_CHAIN:
-      return cobraTokenLogo
+      return viperTokenLogo
     case Blockchain.POLYGON:
       return viperTokenLogo
     default:

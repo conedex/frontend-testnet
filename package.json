@@ -33,7 +33,7 @@
     "@uniswap/token-lists": "^1.0.0-beta.19",
     "@conedex/conedex-contracts": "^1.0.0",
     "@venomswap/periphery": "^1.0.0",
-    "@conedex/conedex-sdk": "1.0.2",
+    "@conedex/conedex-sdk": "^1.0.2",
     "@conedex/sdk-extra": "^1.0.0",
     "@web3-react/core": "^6.1.9",
     "@web3-react/fortmatic-connector": "^6.1.6",

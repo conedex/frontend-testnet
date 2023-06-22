@@ -7,10 +7,8 @@ import { useTranslation } from 'react-i18next'
 
 import styled from 'styled-components'
 
-import ViperLogo from '../../assets/svg/viperswap/black.svg'
-import ViperLogoDark from '../../assets/svg/viperswap/white.svg'
-import CobraLogo from '../../assets/svg/cobraswap/black.svg'
-import CobraLogoDark from '../../assets/svg/cobraswap/white.svg'
+import BitconeLogo from '../../assets/svg/bitcone/bitcone.svg'
+
 import { useActiveWeb3React } from '../../hooks'
 import { useDarkModeManager } from '../../state/user/hooks'
 import { useETHBalances } from '../../state/wallet/hooks'
@@ -244,18 +242,18 @@ export default function Header() {
 
   switch (BLOCKCHAIN) {
     case Blockchain.BINANCE_SMART_CHAIN:
-      logoDark = CobraLogoDark
-      logo = CobraLogo
+      logoDark = BitconeLogo
+      logo = BitconeLogo
       break
       {
         /*case Blockchain.ARBITRUM_POLYGON:
-      logoDark = ViperLogoDark
-      logo = ViperLogo
+      logoDark = BitconeLogo
+      logo = BitconeLogo
   break*/
       }
     default:
-      logoDark = ViperLogoDark
-      logo = ViperLogo
+      logoDark = BitconeLogo
+      logo = BitconeLogo
       break
   }
 
