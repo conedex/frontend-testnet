@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Info, BookOpen, Code, MessageCircle } from 'react-feather'
+import { Info, BookOpen, MessageCircle, Compass, GitHub } from 'react-feather'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import styled from 'styled-components'
 //import CoinGeckoLogo from '../../assets/images/CoinGecko-32x32.png'
@@ -97,21 +97,25 @@ export default function Menu() {
       </StyledMenuButton>
       {open && (
         <MenuFlyout>
-          <MenuItem id="link" href="https://uniswap.org/">
+          <MenuItem id="link" href="https://conegecko.com/">
             <Info size={14} />
             About
           </MenuItem>
-          <MenuItem id="link" href="https://uniswap.org/docs/v2">
+          <MenuItem id="link" href="https://www.reddit.com/r/ConeHeads/">
+            <Compass size={14} />
+            Community
+          </MenuItem>
+          <MenuItem id="link" href="">
             <BookOpen size={14} />
             Docs
           </MenuItem>
-          <MenuItem id="link" href="https://uniswap.org/docs/v2">
-            <Code size={14} />
+          <MenuItem id="link" href="https://github.com/conedex">
+            <GitHub size={14} />
             Code
           </MenuItem>
-          <MenuItem id="link" href="https://discord.gg/EwFs3Pp">
+          <MenuItem id="link" href="https://t.me/bitconedex">
             <MessageCircle size={14} />
-            Discord
+            Telegram
           </MenuItem>
         </MenuFlyout>
       )}

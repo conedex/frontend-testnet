@@ -141,7 +141,9 @@ export default function PoolFinder() {
             <Text textAlign="center" fontWeight={500}>
               Pool Found!
             </Text>
-            <StyledInternalLink to={`/pool`}>
+            <StyledInternalLink
+              to={currency0 && currency1 ? `/remove/${currencyId(currency0)}/${currencyId(currency1)}` : '#'}
+            >
               <Text textAlign="center">Manage this pool.</Text>
             </StyledInternalLink>
           </ColumnCenter>

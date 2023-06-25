@@ -1116,10 +1116,10 @@
     "@nomiclabs/hardhat-etherscan" "^3.1.7"
     dotenv "^16.1.4"
 
-"@conedex/conedex-sdk@1.0.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@conedex/conedex-sdk/-/conedex-sdk-1.1.2.tgz#c91a16b137446013f7be640c19fc0141da88ec4d"
-  integrity sha512-zlA0Fkjew5b7JYXm2Jx79SWaxFyUReYMtI1F1f615g8CQ011SsGzEttAKQaNMdSdC463AcsmYQcq+QVN+ZN17A==
+"@conedex/conedex-sdk@^1.0.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@conedex/conedex-sdk/-/conedex-sdk-1.1.0.tgz#0cac651df5b917cfc80f11d3e668b4739623bf83"
+  integrity sha512-syZSAlL9E6VXsg3Zh8yqCCjTy5kb24Twgr2M3QzP39hCnzKzt5iY0Ox97SZgcIQsVz0IWRLFRw9IsEczLFoywA==
   dependencies:
     "@conedex/conedex-contracts" "^1.0.0"
     big.js "^5.2.2"
@@ -1129,10 +1129,10 @@
     tiny-warning "^1.0.3"
     toformat "^2.0.0"
 
-"@conedex/conedex-sdk@^1.0.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@conedex/conedex-sdk/-/conedex-sdk-1.1.0.tgz#0cac651df5b917cfc80f11d3e668b4739623bf83"
-  integrity sha512-syZSAlL9E6VXsg3Zh8yqCCjTy5kb24Twgr2M3QzP39hCnzKzt5iY0Ox97SZgcIQsVz0IWRLFRw9IsEczLFoywA==
+"@conedex/conedex-sdk@^1.0.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@conedex/conedex-sdk/-/conedex-sdk-1.1.2.tgz#c91a16b137446013f7be640c19fc0141da88ec4d"
+  integrity sha512-zlA0Fkjew5b7JYXm2Jx79SWaxFyUReYMtI1F1f615g8CQ011SsGzEttAKQaNMdSdC463AcsmYQcq+QVN+ZN17A==
   dependencies:
     "@conedex/conedex-contracts" "^1.0.0"
     big.js "^5.2.2"

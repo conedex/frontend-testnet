@@ -4,7 +4,9 @@ import { AbstractConnector } from '@web3-react/abstract-connector'
 
 import { fortmatic, injected, portis, walletconnect, walletlink } from '../connectors'
 
-import getTokenWithDefault from '../utils/getTokenWithDefault'
+{
+  /* import getTokenWithDefault from '../utils/getTokenWithDefault' */
+}
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const ZERO_ONE_ADDRESS = '0x0000000000000000000000000000000000000001'
@@ -126,6 +128,22 @@ export const MKR = new Token(ChainId.MAINNET, '0x9f8F72aA9304c8B593d555F12eF6589
 export const AMPL = new Token(ChainId.MAINNET, '0xD46bA6D942050d489DBd938a2C909A5d5039A161', 9, 'AMPL', 'Ampleforth')
 export const WBTC = new Token(ChainId.MAINNET, '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', 8, 'WBTC', 'Wrapped BTC')
 
+export const CONE = new Token(
+  ChainId.POLYGON_TESTNET,
+  '0x80273525B1548EeA1f211f4218Cf30c1a7C86b25',
+  18,
+  'CONE',
+  'BitCone'
+)
+
+export const WMATIC = new Token(
+  ChainId.POLYGON_TESTNET,
+  '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+  18,
+  'WMATIC',
+  'Wrapped Matic'
+)
+
 // Block time here is slightly higher (~1s) than average in order to avoid ongoing proposals past the displayed time
 export const AVERAGE_BLOCK_TIME_IN_SECS = 13
 export const PROPOSAL_LENGTH_IN_BLOCKS = 40_320
@@ -160,15 +178,8 @@ const WETH_ONLY: ChainTokenList = {
 export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, COMP, MKR, WBTC],
-  [ChainId.POLYGON_MAINNET]: [
-    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
-    DAI,
-    USDT,
-    USDC,
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1ETH'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'LINK')
-  ]
+  [ChainId.POLYGON_MAINNET]: [...WETH_ONLY[ChainId.POLYGON_MAINNET], DAI, USDT, USDC, CONE],
+  [ChainId.POLYGON_TESTNET]: [...WETH_ONLY[ChainId.POLYGON_TESTNET], CONE, WMATIC]
 }
 
 /**
@@ -185,26 +196,14 @@ export const CUSTOM_BASES: { [chainId in ChainId]?: { [tokenAddress: string]: To
 export const SUGGESTED_BASES: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
-  [ChainId.POLYGON_MAINNET]: [
-    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER')
-  ]
+  [ChainId.POLYGON_MAINNET]: [...WETH_ONLY[ChainId.POLYGON_MAINNET], WMATIC, CONE]
 }
 
 // used to construct the list of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   ...WETH_ONLY,
   [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDC, USDT, WBTC],
-  [ChainId.POLYGON_MAINNET]: [
-    ...WETH_ONLY[ChainId.POLYGON_MAINNET],
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'BUSD'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'bscBUSD'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1USDC'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'VIPER'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, '1ETH'),
-    getTokenWithDefault(ChainId.POLYGON_MAINNET, 'LINK')
-  ]
+  [ChainId.POLYGON_MAINNET]: [...WETH_ONLY[ChainId.POLYGON_MAINNET], CONE]
 }
 
 export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
@@ -215,6 +214,14 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } 
     ],
     [USDC, USDT],
     [DAI, USDT]
+  ],
+  [ChainId.POLYGON_MAINNET]: [
+    [
+      new Token(ChainId.POLYGON_TESTNET, '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889', 18, 'WMATIC', 'Wrapped MATIC'),
+      new Token(ChainId.POLYGON_TESTNET, '0x80273525B1548EeA1f211f4218Cf30c1a7C86b25', 18, 'CONE', 'BitCone')
+    ],
+    [CONE, WMATIC],
+    [WMATIC, CONE]
   ]
 }
 
