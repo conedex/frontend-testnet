@@ -4,6 +4,7 @@
   "homepage": ".",
   "private": true,
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@ethersproject/experimental": "^5.1.2",
     "@popperjs/core": "^2.4.4",
     "@reach/dialog": "^0.10.3",
@@ -133,6 +134,6 @@
   },
   "license": "GPL-3.0-or-later",
   "dependencies": {
-    "@conedex/default-token-list": "^1.0.0"
+    "@conedex/default-token-list": "^1.1.1"
   }
 }
