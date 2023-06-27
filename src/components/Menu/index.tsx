@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Info, BookOpen, MessageCircle, Compass, GitHub } from 'react-feather'
+import { Info, BookOpen, MessageCircle, GitHub } from 'react-feather'
 import { ReactComponent as MenuIcon } from '../../assets/images/menu.svg'
 import styled from 'styled-components'
 //import CoinGeckoLogo from '../../assets/images/CoinGecko-32x32.png'
@@ -99,13 +99,9 @@ export default function Menu() {
         <MenuFlyout>
           <MenuItem id="link" href="https://conegecko.com/">
             <Info size={14} />
-            About
+            Price
           </MenuItem>
-          <MenuItem id="link" href="https://www.reddit.com/r/ConeHeads/">
-            <Compass size={14} />
-            Community
-          </MenuItem>
-          <MenuItem id="link" href="">
+          <MenuItem id="link" href="https://conedex.gitbook.io/conedex-docs/">
             <BookOpen size={14} />
             Docs
           </MenuItem>
