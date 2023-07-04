@@ -8,7 +8,7 @@ export const UNSUPPORTED_LIST_URLS: string[] = []
 https://raw.githubusercontent.com/conedex/default-token-list/main/build/conedex-default.tokenlist.json
 https://raw.githubusercontent.com/conedex/default-token-list/main/build/new_conedex-default.tokenlist.json*/
 const CONEDEX_DEFAULT_LIST =
-  'https://raw.githubusercontent.com/conedex/community-token-list/main/build/conedex-default.tokenlist.json'
+  'https://raw.githubusercontent.com/conedex/default-token-list/main/build/conedex-default.tokenlist.json'
 const CONEDEX_COMMUNITY_LIST =
   'https://raw.githubusercontent.com/conedex/community-token-list/main/build/conedex-community.tokenlist.json'
 
